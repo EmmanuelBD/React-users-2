@@ -13,26 +13,43 @@ class App extends Component {
         {
           name: "John Doe",
           email: "johndoe@email.com",
-          gen: 12
+          gen: 12,
+          id: "111"
         },
         {
           name: "Sandra Fox",
           email: "sandrafox@email.com",
-          gen: 13
+          gen: 13,
+          id: "222"
         },
         {
           name: "Greg Cole",
           email: "gregcole@email.com",
-          gen: 14
+          gen: 14,
+          id: "333"
         },
       ]
     }
   }
 
   addNewUser = (user) => {
+    user.id = Math.random().toString()
         this.setState({
           users:  [...this.state.users, user]
         })
+  }
+
+  deleteUser = (id) => {
+    let undeletedUsers = this.state.users.filter(user => user.id !== id);
+    this.setState({
+      users: undeletedUsers
+    })
+  }
+
+  editUser = (id, updatedUser) => {
+    this.setState({
+      users: this.state.users.map(user => user.id === id ? updatedUser : user)
+    })
   }
   render(){
   return (
@@ -40,10 +57,14 @@ class App extends Component {
       <Container fluid style={{marginTop: "2rem"}}>
         <Row>
           <Col md="4">
+            <h4>Add User</h4>
+            <br/>
             <AddUserForm addUser = {this.addNewUser} />
           </Col>
           <Col>
-            <Users usersData={this.state.users}/>
+          <h4>All Users</h4>
+          <br/>
+            <Users usersData={this.state.users} deleteUser={this.deleteUser} editUser={this.editUser}/>
           </Col>
         </Row> 
       </Container>

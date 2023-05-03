@@ -7,8 +7,8 @@ const Users = (props) => {
         <Container>
             <Row>
                 {
-                    props.usersData.map((user, index) => {
-                        return <User userInfo = {user} key={index} />
+                    props.usersData.map((user) => {
+                        return <User userInfo = {user} key={user.id} deleteUser={props.deleteUser} editUser={props.editUser}/>
                     })
                 }
             </Row>
