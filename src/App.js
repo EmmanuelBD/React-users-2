@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import { Container, Row , Col} from 'react-bootstrap';
 import Users from './components/Users';
-import AddUserForm from './components/AddUserForm';
+import AddUserForm from './components/AddUserForm'; 
 
 class App extends Component {
   constructor(props){
