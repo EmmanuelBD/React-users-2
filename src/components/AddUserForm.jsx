@@ -1,63 +1,45 @@
-import React, { Component } from "react";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
 
-class AddUserForm extends Component {
-    constructor(props) {
-        super(props);
-        this.state={
-            name: "",
-            email: "",
-            gen: "",
-        };
-    }
+import React, { useState } from 'react';
+import { Form, Button } from 'react-bootstrap';
 
-    handleChange = (e) => {
-        e.preventDefault();
-        this.setState({
-            [e.target.name] : e.target.value
-        });
+const AddUserForm = (props) => {
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [gen, setGen] = useState('');
 
-        
-        
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newUser = {
+      name,
+      email,
+      gen
     };
+    props.addUser(newUser);
+    setName('');
+    setEmail('');
+    setGen('');
+  };
 
-    handleSubmit = (e) => {
-        e.preventDefault();
-        this.props.addUser(this.state);
-        this.setState({
-            name: "",
-            email: "",
-            gen: "",
-        });
-    
-    };
-
-  render() {
-    return (
-      <Form onSubmit={this.handleSubmit}>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Name</Form.Label>
-          <Form.Control type="text" placeholder="Enter name" name="name" value={this.state.name} onChange={this.handleChange} />
-          
-        </Form.Group>
-        <Form.Group className="mb-3" controlId="formBasicEmail">
-          <Form.Label>Email address</Form.Label>
-          <Form.Control type="email" placeholder="Enter email" name="email" value={this.state.email} onChange={this.handleChange}/>
-         
-        </Form.Group>
-
-        <Form.Group className="mb-3" controlId="formBasicPassword">
-          <Form.Label>Gen</Form.Label>
-          <Form.Control type="number" placeholder="Gen" name="gen" value={this.state.gen} onChange={this.handleChange}/>
-        </Form.Group>
-       
-        <Button variant="primary" type="submit">
-          Submit
-        </Button>
-      </Form>
-    );
-  }
-}
+  return (
+    <Form onSubmit={handleSubmit}>
+      <Form.Group controlId="name">
+        <Form.Label>Name</Form.Label>
+        <Form.Control type="text" value={name} onChange={(e) => setName(e.target.value)} />
+      </Form.Group>
+      <Form.Group controlId="email">
+        <Form.Label>Email</Form.Label>
+        <Form.Control type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+      </Form.Group>
+      <Form.Group controlId="gen">
+        <Form.Label>Gen</Form.Label>
+        <Form.Control type="number" value={gen} onChange={(e) => setGen(e.target.value)} />
+      </Form.Group>
+      <Button variant="primary" type="submit">
+        Add User
+      </Button>
+    </Form>
+  );
+};
 
 export default AddUserForm;
+
